@@ -1,5 +1,6 @@
 package adrianromanski.services;
 
+import adrianromanski.domain.Customer;
 import adrianromanski.mapper.CustomerMapper;
 import adrianromanski.model.CustomerDTO;
 import adrianromanski.repositories.CustomerRepository;
@@ -36,5 +37,18 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(id)
                 .map(customerMapper::customerToCustomerDTO)
                 .orElseThrow(RuntimeException::new); // To do implement better exception handling
+    }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+       Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+
+       Customer savedCustomer = customerRepository.save(customer);
+
+       CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+
+       returnDTO.setCustomerUrl("/customers/" + savedCustomer.getId());
+
+       return returnDTO;
     }
 }
