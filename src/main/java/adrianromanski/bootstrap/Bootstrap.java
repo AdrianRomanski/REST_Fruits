@@ -1,7 +1,9 @@
 package adrianromanski.bootstrap;
 
 import adrianromanski.domain.Category;
+import adrianromanski.domain.Customer;
 import adrianromanski.repositories.CategoryRepository;
+import adrianromanski.repositories.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -9,9 +11,11 @@ import org.springframework.stereotype.Component;
 public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
+    private CustomerRepository customerRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
         this.categoryRepository = categoryRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -37,7 +41,20 @@ public class Bootstrap implements CommandLineRunner {
         categoryRepository.save(nuts);
         categoryRepository.save(exotic);
 
-        System.out.println("Data Loaded = " + categoryRepository.count());
+        Customer adrian = new Customer();
+        adrian.setFirstName("Adrian");
+        adrian.setLastName("Romanski");
+
+        Customer kinga = new Customer();
+        kinga.setFirstName("Kinga");
+        kinga.setLastName("Patyna");
+
+        customerRepository.save(adrian);
+        customerRepository.save(kinga);
+
+
+        System.out.println("Data Loaded Categories = " + categoryRepository.count());
+        System.out.println("Data Loaded Customers = " + customerRepository.count());
 
     }
 }
