@@ -16,9 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static adrianromanski.controllers.AbstractRestControllerTest.asJsonString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.refEq;
+import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -80,6 +81,7 @@ public class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", equalTo(FIRST_NAME)));
     }
+
     @Test
     public void createNewCustomer() throws Exception {
         //given
@@ -103,4 +105,6 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.customerUrl", equalTo("/customers/1")));
     }
 }
+
+
 

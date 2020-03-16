@@ -1,10 +1,7 @@
 package adrianromanski.controllers;
 
-import adrianromanski.domain.Customer;
-import adrianromanski.model.CategoryListDTO;
 import adrianromanski.model.CustomerDTO;
 import adrianromanski.model.CustomerListDTO;
-import adrianromanski.repositories.CustomerRepository;
 import adrianromanski.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +31,11 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerDTO> createNewCustomer(@RequestBody CustomerDTO customerDTO) {
         return new ResponseEntity<>(customerService.createNewCustomer(customerDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping({"{id}"})
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
+        return new ResponseEntity<>(customerService.saveCustomerByDTO(id, customerDTO),
+                HttpStatus.OK);
     }
 }
