@@ -2,8 +2,10 @@ package adrianromanski.bootstrap;
 
 import adrianromanski.domain.Category;
 import adrianromanski.domain.Customer;
+import adrianromanski.domain.Vendor;
 import adrianromanski.repositories.CategoryRepository;
 import adrianromanski.repositories.CustomerRepository;
+import adrianromanski.repositories.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +14,12 @@ public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
     private CustomerRepository customerRepository;
+    private VendorRepository vendorRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -52,9 +56,20 @@ public class Bootstrap implements CommandLineRunner {
         customerRepository.save(adrian);
         customerRepository.save(kinga);
 
+        Vendor walter = new Vendor();
+        walter.setName("Walter White");
 
-        System.out.println("Data Loaded Categories = " + categoryRepository.count());
-        System.out.println("Data Loaded Customers = " + customerRepository.count());
+        Vendor jessie = new Vendor();
+        jessie.setName("Jessie Pinkman");
+
+        vendorRepository.save(walter);
+        vendorRepository.save(jessie);
+
+
+        System.out.println("Loaded Categories = " + categoryRepository.count());
+        System.out.println("Loaded Customers = " + customerRepository.count());
+        System.out.println("Loaded Vendors = " + vendorRepository.count());
+
 
     }
 }

@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO getCustomerByID(Long id) {
         return customerRepository.findById(id)
                 .map(customerMapper::customerToCustomerDTO)
-                .orElseThrow(ResourceNotFoundException::new); // To do implement better exception handling
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
